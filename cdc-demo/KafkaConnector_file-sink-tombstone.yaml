@@ -1,0 +1,14 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  labels:
+    strimzi.io/cluster: demo-connect-cluster
+  name: file-sink-tombstone
+spec:
+  class: org.apache.kafka.connect.file.FileStreamSinkConnector
+  config:
+    topics: mysql.sampledb.orders
+    file: /tmp/mysql-tombstone-history.txt
+    delete.retention.ms: 86400000
+    cleanup.policy: delete
+  tasksMax: 1
